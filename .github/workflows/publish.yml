@@ -65,7 +65,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Create publish files
-        run: dotnet publish --configuration Release --o ./publish
+        run: dotnet publish --configuration Release --output ./publish
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3.0.0
