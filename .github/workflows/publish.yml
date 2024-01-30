@@ -65,9 +65,14 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Create publish files
-        run: dotnet publish --configuration Release --output ./publish
+        run: dotnet publish --configuration Release --o ./publish
 
-       
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3.0.0
+        with:
+          app-name: 'Hej-Min-Första-Web-App'
+          publish-profile: ${{ secrets.AZURE_WEB_APP_KEY }}
+          package: './publish'
 
   create-issue:
     runs-on: ubuntu-latest
