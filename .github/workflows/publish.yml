@@ -17,5 +17,18 @@ jobs:
         uses: actions/setup-dotnet@v4.0.0
         with: 
           dotnet-version: '8.0'
+      - name: Install dependencies
+        run: dotnet restore
+  publish-project:
+    runs-on: ubuntu-latest
+    needs: test-project
+    steps:
+      - name: Check out Code
+        uses: actions/checkout@v4.1.1
+      - name: Install .NET 8.0 SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with: 
+          dotnet-version: '8.0'
+      - name: Install dependencies
+        run: dotnet restore
 
-          
