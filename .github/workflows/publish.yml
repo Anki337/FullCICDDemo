@@ -30,7 +30,15 @@ jobs:
           # Restore dependencies
       - name: Install dependencies
         run: dotnet restore
+
         # Build and test
+      - name: Build
+        run: dotnet build --no-restore
+      
+        # Test
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+        
   publish-project:
     runs-on: ubuntu-latest
     needs: test-project
@@ -53,3 +61,19 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Create publish files
+        run: dotnet publish --configuration Release --output ./publish
+
+       
+
+  create-issue:
+    runs-on: ubuntu-latest
+    needs: test-project
+    steps:
+      - name: Create Issue
+        run: |
+          echo "##[error]There is a problem with the code. Please check the build logs."
+          echo "Tests Failed!"
